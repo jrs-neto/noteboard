@@ -1,5 +1,7 @@
+import Board from "./pages/Board/Board";
+
 function App() {
-  return <h1>NoteBoard</h1>;
+  return <Board />;
 }
 
 export default App;

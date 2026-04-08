@@ -5,6 +5,7 @@ function CardForm({ onAddCard }) {
   const [content, setContent] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
+    if (!title.trim() || !content.trim()) return;
     e.preventDefault();
 
     onAddCard({

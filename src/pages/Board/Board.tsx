@@ -1,6 +1,13 @@
+import { useState } from "react";
 import Card from "../../components/Card/Card";
+import CardForm from "../../components/CardForm/CardForm";
 
 function Board() {
+
+  function addCard(newCard) {
+    setCards((prev) => [...prev, newCard]);
+  }
+
   const mockCards = [
     {
       id: "1",
@@ -13,12 +20,16 @@ function Board() {
       content: "Apply to 3 positions today",
     },
   ];
+  const [cards, setCards] = useState([mockCards]);
+
 
   return (
     <div>
       <h1>Board</h1>
 
-      {mockCards.map((card) => (
+      <CardForm onAddCard={addCard} />
+
+      {cards.map((card) => (
         <Card key={card.id} data={card} />
       ))}
     </div>

@@ -22,6 +22,10 @@ function Board() {
   ];
   const [cards, setCards] = useState([mockCards]);
 
+  function deleteCard(id: string) {
+    setCards((prev) => prev.filter((card) => card.id !== id));
+  }
+
 
   return (
     <div>
@@ -30,7 +34,7 @@ function Board() {
       <CardForm onAddCard={addCard} />
 
       {cards.map((card) => (
-        <Card key={card.id} data={card} />
+        <Card key={card.id} data={card} onDelete={deleteCard} />
       ))}
     </div>
   );

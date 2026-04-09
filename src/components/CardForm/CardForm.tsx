@@ -3,6 +3,7 @@ import { useState } from "react";
 function CardForm({ onAddCard }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [color, setColor] = useState('#fff');
 
   function handleSubmit(e: React.FormEvent) {
     if (!title.trim() || !content.trim()) return;
@@ -12,6 +13,7 @@ function CardForm({ onAddCard }) {
       id: Date.now().toString(),
       title,
       content,
+      color,
     })
 
     setTitle('');

@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import type { Card as CardType } from "../../types/Card";
 
 interface CardFormProps {
-  onAddCard: (card: CardType & { color?: string }) => void;
-  onUpdateCard?: (card: CardType & { color?: string }) => void;
-  editingCard?: (CardType & { color?: string }) | null;
+  onAddCard: (card: CardType) => void;
+  onUpdateCard?: (card: CardType) => void;
+  editingCard?: CardType | null;
+  onCancelEdit: () => void;
 }
 
-function CardForm({ onAddCard, onUpdateCard, editingCard }: CardFormProps) {
+function CardForm({ onAddCard, onUpdateCard, editingCard, onCancelEdit }: CardFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [color, setColor] = useState('#fff');
@@ -32,6 +33,7 @@ function CardForm({ onAddCard, onUpdateCard, editingCard }: CardFormProps) {
         content,
         color,
       });
+      onCancelEdit();
     } else {
       onAddCard({
         id: Date.now().toString(),

@@ -1,0 +1,84 @@
+.card {
+  width: 290px;
+  min-height: 240px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.03);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer; 
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+}
+
+.card.priority {
+  border: 2px solid #333;
+}
+
+.card-title {
+  font-family: var(--font-hand); 
+  font-size: 2rem;
+  margin: 0 0 1rem 0;
+  color: #111;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.card-content {
+  font-size: 0.95rem;
+  color: #222;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.priority-badge {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.footer-left, .footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-footer button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: #111;
+}
+
+.card-footer button:hover {
+  opacity: 1;
+}
+
+.drag-icon {
+  opacity: 0.4;
+  cursor: grab;
+  font-size: 1.2rem;
+}
+
+.card:active .drag-icon {
+  cursor: grabbing;
+}

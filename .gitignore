@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Project Context
+contexto.txt
+conversa com a IA.txt

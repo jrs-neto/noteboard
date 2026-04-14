@@ -1,0 +1,80 @@
+.card-form {
+background: var(--bg);
+padding: 1.5rem;
+border-radius: 12px;
+box-shadow: var(--shadow);
+border: 1px solid var(--border);
+width: 100%;
+max-width: 500px;
+}
+
+.form-inputs input, .form-inputs textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: var(--sans);
+  color: var(--text-h);
+  outline: none;
+}
+
+.form-inputs input {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-inputs textarea {
+  min-height: 80px;
+  resize: none;
+}
+
+.form-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.color-picker {
+  display: flex;
+  gap: 8px;
+}
+
+.color-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-btn.selected {
+  transform: scale(1.2);
+  border-color: var(--accent);
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.submit-btn {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}

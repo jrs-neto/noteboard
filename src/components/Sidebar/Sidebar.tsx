@@ -1,34 +1,82 @@
+import { useState } from "react";
+import type { Category } from "../../types/Card";
 import "./Sidebar.css";
 
-function Sidebar() {
+interface SidebarProps {
+  categories: Category[];
+  activeCategoryId: string | null;
+  onSelectCategory: (id: string | null) => void;
+  onAddCategory: (name: string) => void;
+}
+
+function Sidebar({ categories, activeCategoryId, onSelectCategory, onAddCategory }: SidebarProps) {
+  const [isAdding, setIsAdding] = useState(false);
+  const [newCatName, setNewCatName] = useState("");
+
+  const handleAddSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newCatName.trim()) {
+      onAddCategory(newCatName.trim());
+      setNewCatName("");
+      setIsAdding(false);
+    }
+  };
+
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <span>NOTEBOARD</span>
+        <span className="logo-icon">📘</span>
+        <h2>NOTEBOARD</h2>
       </div>
 
       <div className="sidebar-section">
-        <h3>Categorias</h3>
+        <h3>Menu Principal</h3>
         <ul>
-          <li>Programação</li>
-          <li>Ideias Criativas</li>
-          <li>Trabalho</li>
-          <li>Pessoal</li>
-          <li>Projetos</li>
+          <li
+            className={activeCategoryId === null ? 'active' : ''}
+            onClick={() => onSelectCategory(null)}
+          >
+            Todas as Notas
+          </li>
         </ul>
-        <button>+ Adicionar Categoria</button>
       </div>
 
       <div className="sidebar-section">
-        <h3>Pastas</h3>
+        <h3>Suas Categorias</h3>
         <ul>
-          <li>Arquivos Importantes</li>
-          <li>Documentos</li>
+          {categories.map(cat => (
+            <li
+              key={cat.id}
+              className={activeCategoryId === cat.id ? 'active' : ''}
+              onClick={() => onSelectCategory(cat.id)}
+            >
+              {cat.name}
+            </li>
+          ))}
         </ul>
-        <button className="add-btn">+ Adicionar Categoria</button>
+
+        {isAdding ? (
+          <form onSubmit={handleAddSubmit} className="add-cat-form">
+            <input
+              autoFocus
+              type="text"
+              placeholder="Nome da categoria..."
+              value={newCatName}
+              onChange={(e) => setNewCatName(e.target.value)}
+              onBlur={() => setIsAdding(false)}
+            />
+          </form>
+        ) : (
+          <button className="add-btn" onClick={() => setIsAdding(true)}>
+            + Adicionar Categoria
+          </button>
+        )}
       </div>
+
+      {/* Um espaço vazio flexível para empurrar conteúdo se necessário */}
+      <div style={{ flex: 1 }}></div>
     </aside>
-  )
+  );
 }
 
 export default Sidebar;

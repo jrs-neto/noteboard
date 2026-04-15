@@ -80,3 +80,12 @@
 .add-btn:hover {
   background: #f9fafb;
 }
+
+.add-cat-form input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  outline: none;
+  font-family: var(--font-sans);
+}

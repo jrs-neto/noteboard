@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Card as CardType } from "../../types/Card";
+import type { Card as CardType, Category } from "../../types/Card";
 import "./CardForm.css";
 
 interface CardFormProps {
@@ -7,26 +7,32 @@ interface CardFormProps {
   onUpdateCard?: (card: CardType) => void;
   editingCard?: CardType | null;
   onCancelEdit: () => void;
+  categories: Category[];
+  activeCategoryId: string | null;
 }
 
 const COLORS = ['#93c5fd', '#fde047', '#86efac', '#fca5a5', '#fdba74', '#f9a8d4'];
 
-function CardForm({ onAddCard, onUpdateCard, editingCard, onCancelEdit }: CardFormProps) {
+function CardForm({ onAddCard, onUpdateCard, editingCard, onCancelEdit, categories, activeCategoryId }: CardFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [color, setColor] = useState(COLORS[0]);
+  const [categoryId, setCategoryId] = useState<string>(activeCategoryId || "");
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (editingCard) {
       setTitle(editingCard.title);
       setContent(editingCard.content);
       setColor(editingCard.color || COLORS[0]);
+      setCategoryId(editingCard.categoryId || "");
     } else {
       setTitle("");
       setContent("");
       setColor(COLORS[0]);
+      setCategoryId(activeCategoryId || "");
     }
-  }, [editingCard]);
+  }, [editingCard, activeCategoryId]);
 
   const resetForm = () => {
     setTitle("");
@@ -34,7 +40,6 @@ function CardForm({ onAddCard, onUpdateCard, editingCard, onCancelEdit }: CardFo
     setColor(COLORS[0]);
   };
 
-  // Permite salvar apertando Ctrl + Enter
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.ctrlKey && e.key === 'Enter') {
       handleSubmit(e as unknown as React.FormEvent);
@@ -51,6 +56,7 @@ function CardForm({ onAddCard, onUpdateCard, editingCard, onCancelEdit }: CardFo
         title,
         content,
         color,
+        categoryId: categoryId || ""
       });
     } else {
       onAddCard({
@@ -58,6 +64,7 @@ function CardForm({ onAddCard, onUpdateCard, editingCard, onCancelEdit }: CardFo
         title,
         content,
         color,
+        categoryId: categoryId || ""
       });
     }
     resetForm();
@@ -77,6 +84,20 @@ function CardForm({ onAddCard, onUpdateCard, editingCard, onCancelEdit }: CardFo
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
+
+        {/* Novo Seletor de Categorias */}
+        {categories.length > 0 && (
+          <select
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            className="category-select"
+          >
+            <option value="">Nenhuma pasta (Geral)</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
+        )}
       </div>
 
       <div className="form-footer">

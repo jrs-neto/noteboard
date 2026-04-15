@@ -9,33 +9,34 @@ interface CardProps {
 }
 
 function Card({ data, onDelete, onDoubleClick, onTogglePriority }: CardProps) {
+  const priorityClass = data.priority ? `priority-${data.priority}` : '';
+
   return (
     <div
-      className={`card ${data.priority ? 'priority' : ''}`}
+      className={`card ${priorityClass}`}
       style={{ backgroundColor: data.color || '#93c5fd' }}
-      onDoubleClick={onDoubleClick} // <-- Agora ao clicar 2x ele entra em modo de edição
+      onDoubleClick={onDoubleClick}
     >
       <div className="card-body">
         <h3 className="card-title">{data.title}</h3>
         <p className="card-content">{data.content}</p>
-
-        {data.priority && (
-          <div className="priority-badge">
-            Prioridade: Alta 🟢
-          </div>
-        )}
       </div>
 
       <div className="card-footer">
         <div className="footer-left">
-          <button title="Excluir" onClick={() => onDelete(data.id)}>Excluir</button>
+          <button title="Editar" onClick={(e) => { e.stopPropagation(); onDoubleClick() }}>✏️</button>
+          <button title="Excluir" onClick={(e) => { e.stopPropagation(); onDelete(data.id) }}>🗑️</button>
         </div>
         <div className="footer-right">
           <button
-            title="Marcar/Desmarcar Prioridade"
+            title="Alterar Prioridade"
+            className="priority-btn"
             onClick={(e) => { e.stopPropagation(); onTogglePriority(data.id) }}
           >
-            {data.priority ? "⭐" : "☆"} Prioridade
+            {data.priority === 'low' && 'Baixa 🟢'}
+            {data.priority === 'medium' && 'Média 🟡'}
+            {data.priority === 'high' && 'Alta 🔴'}
+            {!data.priority && 'Prioridade ⚪'}
           </button>
           <span className="drag-icon">☩</span>
         </div>

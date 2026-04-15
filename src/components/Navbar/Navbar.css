@@ -8,6 +8,12 @@
   padding: 0 2rem;
 }
 
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .navbar-title {
   margin: 0;
   font-size: 1.5rem;
@@ -22,8 +28,32 @@
 }
 
 .search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  padding: 10px 16px;
+  gap: 10px;
+  width: 320px;
+}
+
+.search-icon {
   opacity: 0.5;
   cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  color: #333;
+  width: 100%;
+  font-size: 1rem;
+}
+.search-bar input::placeholder {
+  color: #94a3b8;
 }
 
 .new-card-btn {
@@ -35,20 +65,16 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 } 
 
 .new-card-btn:hover {
   opacity: 0.9;
 }
 
-.share-btn {
-  background: transparent;
-  border: 1px solid var(--border);
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text-h);
+.profile-name {
   display: flex;
   align-items: center;
   gap: 6px;

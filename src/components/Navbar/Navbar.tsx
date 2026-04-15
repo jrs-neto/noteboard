@@ -1,3 +1,4 @@
+import { Search, Plus, ChevronDown } from "lucide-react";
 import "./Navbar.css";
 
 interface NavbarProps {
@@ -9,24 +10,25 @@ function Navbar({ onNewCard }: NavbarProps) {
     <nav className="navbar">
       <div className="navbar-left">
         <h2 className="navbar-title">Dashboard</h2>
+        <div className="search-bar">
+          <Search className="search-icon" size={18} />
+          <input type="text" placeholder="Pesquisar notas..." />
+        </div>
       </div>
 
       <div className="navbar-right">
-        <div className="search-bar">
-          <span>🔍</span>
-        </div>
         <button className="new-card-btn" onClick={onNewCard}>
-          + Novo Flashcard
+          <Plus size={18} strokeWidth={2.5} />
+          Novo Flashcard
         </button>
-        <button className="share-btn">
-          🔗 Compartilhar
-        </button>
+        
         <div className="user-profile">
-          <div className="avatar">👩🏻‍💻</div>
-          <span>Link a Google ⏷</span>
+          <img src="https://i.pravatar.cc/150?img=47" alt="User" className="avatar" />
+          <span className="profile-name">
+            Olá, José <ChevronDown size={14} />
+          </span>
         </div>
       </div>
-
     </nav>
   )
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Share2, Link as LinkIcon, UserPlus, ChevronDown } from "lucide-react";
 import Card from "../../components/Card/Card";
 import CardForm from "../../components/CardForm/CardForm";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -24,6 +25,7 @@ function Board() {
 
   const [editingCard, setEditingCard] = useState<CardType | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   // Salvando as alterações
   useEffect(() => {
@@ -68,9 +70,15 @@ function Board() {
 
   function togglePriority(id: string) {
     setCards((prev) =>
-      prev.map((card) =>
-        card.id === id ? { ...card, priority: !card.priority } : card
-      )
+      prev.map((card) => {
+        if (card.id !== id) return card;
+        let nextPrio: 'low' | 'medium' | 'high' | null = null;
+        if (!card.priority) nextPrio = 'low';
+        else if (card.priority === 'low') nextPrio = 'medium';
+        else if (card.priority === 'medium') nextPrio = 'high';
+        else nextPrio = null;
+        return { ...card, priority: nextPrio };
+      })
     );
   }
 
@@ -113,12 +121,38 @@ function Board() {
         <Navbar onNewCard={() => setIsFormOpen(true)} />
 
         <div className="board-container">
-          {/* Mostra para o usuário qual filtro ele tá olhando */}
-          <h2 style={{ marginTop: 0, paddingBottom: '10px', fontSize: '1.2rem', color: '#666' }}>
-            {activeCategoryId
-              ? `Explorando: ${categories.find(c => c.id === activeCategoryId)?.name}`
-              : 'Mostrando Tudo'}
-          </h2>
+          <div className="board-header">
+            <h2 className="board-title">
+              {activeCategoryId
+                ? `Explorando: ${categories.find(c => c.id === activeCategoryId)?.name}`
+                : 'Dashboard'}
+            </h2>
+
+            <div className="share-menu-container">
+              <button 
+                className="share-board-btn"
+                onClick={() => setIsShareOpen(!isShareOpen)}
+              >
+                <Share2 size={16} />
+                Compartilhar
+                <ChevronDown size={14} />
+              </button>
+              
+              {isShareOpen && (
+                <div className="share-dropdown">
+                  <button onClick={() => setIsShareOpen(false)}>
+                    <LinkIcon size={14} /> Copiar Link
+                  </button>
+                  <button onClick={() => setIsShareOpen(false)}>
+                    <UserPlus size={14} /> Convidar Editor
+                  </button>
+                  <button onClick={() => setIsShareOpen(false)}>
+                    <UserPlus size={14} /> Convidar Leitor
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
 
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="board" direction="horizontal">

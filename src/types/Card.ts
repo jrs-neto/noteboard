@@ -3,7 +3,7 @@ export interface Card {
   title: string;
   content: string;
   color?: string;
-  priority?: boolean;
+  priority?: 'low' | 'medium' | 'high' | null;
   categoryId: string;
 }
 

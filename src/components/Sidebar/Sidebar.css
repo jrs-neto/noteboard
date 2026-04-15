@@ -50,10 +50,6 @@
   font-weight: 500;
 }
 
-.sidebar-section li:before {
-  content: "📁";
-  font-size: 1.1rem;
-}
 
 .sidebar-section li.active {
   background-color: #f3f4f6;
